@@ -1,10 +1,4 @@
-async function getCanapes(){
-    const canapes = await fetch ('http://localhost:3000/api/products')
-    .then(reponse => reponse.json())
-    return canapes
-
-}
-
+import { getCanapes } from "./api.js";
 async function fillCanape(){
     const canape = await getCanapes()
 
@@ -34,5 +28,5 @@ for (let i = 0; i < canape.length; i++){
     p.innerHTML = kanap.description
     article.appendChild(p)
    }
-}
+};
  fillCanape()

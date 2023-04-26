@@ -1,18 +1,12 @@
+import { getProduct } from "./api.js"
+import { setItem, getItem } from "./localstorage.js"
 //fonction pour obtenir l'id du produit
 const getId = new URL (document.location).searchParams
 const id = getId.get("id")
-const url = `http://localhost:3000/api/products/${id}`
-console.log(id)
 
-//fonction pour obtenir l'article choisit
-async function getProduct (){
-    const product = await fetch (url)
-    .then (reponse2 => reponse2.json())
-    return product 
-}
-
+// création visuel du produit séléctionné
 async function fillProduct(){
-    const canape = await getProduct()
+    const canape = await getProduct(id)
     const itemImg = document.querySelector(".item__img")
     const img = document.createElement("img")
     img.src = canape.imageUrl
@@ -29,19 +23,12 @@ async function fillProduct(){
     description.innerHTML = canape.description
 
     const selectColor = document.getElementById ('colors')
-    for (color of canape.colors){
+    for (const color of canape.colors){
         const option = document.createElement('option')
         option.value = color
         option.innerHTML = color
      selectColor.appendChild(option)
     }
-}
-function getItem(){
-    return JSON.parse(localStorage.getItem("panier")) || {}
-}
-
-function setItem(cart){
-    window.localStorage.setItem('panier', JSON.stringify(cart))
 }
 
 document.querySelector("#addToCart").addEventListener("click", () =>{
@@ -67,7 +54,5 @@ document.querySelector("#addToCart").addEventListener("click", () =>{
             alert('produit ajouté')
         }
 })
-
-
-
 fillProduct()
+export{ fillProduct, getItem, setItem}
