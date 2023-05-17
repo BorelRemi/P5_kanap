@@ -13,3 +13,21 @@ export async function getCanapes(){
     .then(reponse => reponse.json())
     return canapes
 };
+
+export async function sendForm(data) {
+    try {
+        //envoyer les données en method POST
+        return await fetch(url+"/order", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+            .then(result => result.json())
+
+    } catch (err) {
+        console.error("Erreur lors du chargement de l'API pour récupérer la commande:", err);
+    }
+}
