@@ -9,16 +9,11 @@ import { getItem, setItem, deleteItem } from "./localstorage.js"
 
     // creation panier vide
     let titre = document.querySelector("h1")
-    if (cart.length == 0 || cart == null){
+    if (cart.length === 0 || cart === null){
         titre.innerHTML = "Votre panier est vide"
-        console.log(titre)
-        console.log(cart)
-     }else{
-     titre.innerHTML = "Votre panier"
-        }
+    }
     for (const id in cart){
         let canape = await getProduct(id)
-        console.log(canape)
         for (const color in cart[id]){
             const quantity = cart[id][color]
 
@@ -85,7 +80,6 @@ import { getItem, setItem, deleteItem } from "./localstorage.js"
 // changement de la quantité
             input.addEventListener("change", function(e){
                 let cart = getItem()
-                console.log(e.target.value)
                 let newQuantity = e.target.value
                 if(newQuantity < 1 ) newQuantity = 1
                 if(newQuantity > 100 ) newQuantity = 100
@@ -137,6 +131,7 @@ import { getItem, setItem, deleteItem } from "./localstorage.js"
 }
 
 fillCart()
+
 //fonction pour creer le total du panier
 async function totalPrice(){
     const cart =  getItem()
@@ -157,10 +152,10 @@ async function totalPrice(){
 }
 
 //-----------------------------------------------------------------------------------
-// 4) Formulaire avant validation de la commande
+//  Formulaire avant validation de la commande
 //-----------------------------------------------------------------------------------
 
-// Form Validation Regex / Expression régulière de validation de formulaire
+//Expression régulière de validation de formulaire
 const form = document.querySelector('.cart__order__form');
 const firstNameInput = document.querySelector('#firstName');
 const lastNameInput = document.querySelector('#lastName');
@@ -220,7 +215,7 @@ const validFirstName = function() {
     if (regExFirstNameLastNameCity.test(inputFirstName.value)) {
         firstNameErrorMsg.innerHTML = '';
     } else {
-        firstNameErrorMsg.innerHTML = 'Veuillez renseigner votre prénom.';
+        firstNameErrorMsg.innerHTML = 'Le prénom ne doit contenir que des lettres';
         result = false
     }
     return result
@@ -235,7 +230,7 @@ const validLastName = function() {
     if (regExFirstNameLastNameCity.test(inputLastName.value)) {
         lastNameErrorMsg.innerHTML = '';
     } else {
-        lastNameErrorMsg.innerHTML = 'Veuillez renseigner votre nom.';
+        lastNameErrorMsg.innerHTML = 'Le nom ne doit contenir que des lettres.';
         result = false
     }
     return result
@@ -250,7 +245,7 @@ const validAddress = function() {
     if (regExAddress.test(inputAddress.value)) {
         addressErrorMsg.innerHTML = '';
     } else {
-        addressErrorMsg.innerHTML = 'Veuillez renseigner votre adresse.';
+        addressErrorMsg.innerHTML = 'Veuillez renseigner une adresse valide.';
         result =  false
     }
     return result
@@ -265,7 +260,7 @@ const validCity = function() {
     if (regExFirstNameLastNameCity.test(inputCity.value)) {
         cityErrorMsg.innerHTML = '';
     } else {
-        cityErrorMsg.innerHTML = 'Veuillez renseigner votre ville.';
+        cityErrorMsg.innerHTML = 'Veuillez renseigner votre ville valide.';
         result =  false
     }
     return result
@@ -280,7 +275,7 @@ const validEmail = function() {
     if (regExEmail.test(inputEmail.value)) {
         emailErrorMsg.innerHTML = '';
     } else {
-        emailErrorMsg.innerHTML = 'Veuillez renseigner votre adresse email.';
+        emailErrorMsg.innerHTML = 'Veuillez renseigner une adresse email valide.';
         result =  false
     }
     return result
